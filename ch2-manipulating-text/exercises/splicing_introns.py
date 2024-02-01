@@ -8,7 +8,7 @@ dna = "ATCGATCGATCGATCGACTGACTAGTCATAGCTATGCATGTAGCTACTCGATCGATCGATCGATCGATCGATC
 # splicesome - splits a DNA seq at 2 specified locations - creates 3 pieces
 
 # extract exon 1 - start counting form 1 including base number 63
-exon1 = dna[1:64]
+exon1 = dna[0:64]
 print("Exon1: " + exon1)
 exon2 = dna[91:] # starts counting from 
 print("Exon2: " + exon2)
@@ -27,3 +27,9 @@ print("Coding sequence length: " + str(coding_length))
 
 percentage_coding = coding_length / dna_length * 100
 print("Percentage of Coding: " + str(percentage_coding))
+
+# Write a program that will print out the original DNA in upppercase and noncoding bases in lowercase
+
+# first position is inclusive (64), last position is not
+intron = dna[64:91] 
+print(exon1 + intron.lower() + exon2)
