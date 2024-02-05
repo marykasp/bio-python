@@ -111,9 +111,94 @@ In the process of writing the code that used the function, we discovered a coupl
 
 - in the above example the code is divided into 2 parts: the part where we define the function, and the part where it is tested.
 
-### Functions w/o arguments
+### Functions w/o arguments and return values
 
 ```python
 def get_a_number():
   return 42
+```
+
+**keyword arguments** - allows to call functions in a different way, instead of giving a list of arguments in `()`, can supply a list of argument variable names and values
+
+`get_at_content(dna="AGTCGGT", sig_figs=2)`
+
+It doesn't rely on the order of arguments, so we can use whichever order we prefer. These two statements behave identically:
+
+```python
+get_at_content(dna="ATCGTGACTCG", sig_figs=2)
+get_at_content(sig_figs=2, dna="ATCGTGACTCG")
+
+get_at_content("ATCGTGACTCG", 2)
+get_at_content(dna="ATCGTGACTCG", sig_figs=2)
+get_at_content("ATCGTGACTCG", sig_figs=2)
+```
+
+Can't start off with keyword arguments then use without, will throw an error
+
+`get_at_content(dna="ATCGTGACTCG", 2)`
+
+### Default Arguments
+
+Can specify the default value in the first line of the function definition:
+
+```python
+def get_at_content(dna, sig_figs=2):❶
+    length = len(dna)
+    a_count = dna.upper().count('A')
+    t_count = dna.upper().count('T')
+    at_content = (a_count + t_count) / length
+    return round(at_content, sig_figs)
+```
+
+Now we have the best of both worlds. If the function is called with two arguments, it will use the number of significant figures specified; if it's called with one argument, it will use the default value of two significant figures. Let's see some examples:
+
+```python
+get_at_content("ATCGTGACTCG") # will use default argument
+get_at_content("ATCGTGACTCG", 3)
+get_at_content("ATCGTGACTCG", sig_figs=4) # will override default argument
+```
+
+Function argument defaults allow us to write very flexible functions which can have varying numbers of arguments. It only makes sense to use them for arguments where a sensible default can be chosen – there's no point specifying a default for the dna argument in our example. They are particularly useful for functions where some of the optional arguments are only going to be used infrequently.
+
+## Testing Functions
+
+Important to check that code does what you intend it to do
+
+`assert` pythons built in tool for testing functions
+
+- an assertion consists of the word `assert` followed by call to the function, then two equals signs `==`, then result expected
+
+`assert get_at_content("ATGC") == 0.5`
+if assertion turns out to e false then the program will stop and get `AssertionError`
+
+- check if functions are working as intended
+- helpful in tracking down errors in program
+- if all assertion tests pass but get an unexpected output then can be confident that the error does not lie in the function but in the code that calls it
+- checks if by modifying a function we haven't introduced any new errors
+- allow for a form of documentation - including a collection of assertion tests alongside a function can show exactly what output is expected from a given input
+- can use assertions to test behavior of our function for unusual inputs
+
+`assert get_at_content("ATCGNNNNNN") == 0.5`
+
+This will currently be false since currently counting `N` as a character in the sequence
+
+```python
+def get_at_content(dna, sig_figs=2):
+  dna = dna.replace("N", "").upper()
+
+  length = len(dna)
+  a_count = dna.count("A")
+  t_count = dna.count("T")
+
+  at_content = (a_count + t_count) / length
+  return round(at_content, sig_figs)
+
+# test suite
+assert get_at_content("A") == 1
+assert get_at_content("G") == 0
+assert get_at_content("ATGC") == 0.5
+assert get_at_content("AGG") == 0.33
+assert get_at_content("AGG", 1) == 0.3
+assert get_at_content("AGG", 5) == 0.33333
+
 ```
