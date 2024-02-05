@@ -112,3 +112,8 @@ In the process of writing the code that used the function, we discovered a coupl
 - in the above example the code is divided into 2 parts: the part where we define the function, and the part where it is tested.
 
 ### Functions w/o arguments
+
+```python
+def get_a_number():
+  return 42
+```
