@@ -121,3 +121,37 @@ while count<10:
     print(count)
     count = count + 1
 ```
+
+## Complex Conditions
+
+Imagine we want to go through our list of accessions and print out only the ones that start with "a" and end with "3". We could use two nested if statements:
+
+```python
+# both conditions must be true
+for accession in accs:
+  if accession.startswith("a") and accession.endswith("3"):
+    print(accession)
+
+# either conditions are true
+for accession in accs:
+    if accession.startswith('a') or accession.startswith('b'):
+        print(accession)
+```
+
+Can use `and` `or` (logical conditionals, boolean operators) produce complex conditions that will be `true` if either of the two simple conditions are true
+
+```python
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for acc in accs:
+    if (acc.startswith('a') or acc.startswith('b')) and acc.endswith('4'):
+        print(acc)
+```
+
+Finally, we can negate any type of condition by prefixing it with the word `not`.
+
+```python
+accs = ['ab56', 'bh84', 'hv76', 'ay93', 'ap97', 'bd72']
+for acc in accs:
+    if acc.startswith('a') and not acc.endswith('6'):
+        print(acc)
+```
