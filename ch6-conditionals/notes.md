@@ -155,3 +155,29 @@ for acc in accs:
     if acc.startswith('a') and not acc.endswith('6'):
         print(acc)
 ```
+
+## `True/False` Functions
+
+Sometimes want to write a function that can be used in a condition. Just make sure the function always returns a boolean
+
+```python
+def is_at_rich(dna):
+  length = len(dna)
+  a_count = dna.upper().count("A")
+  t_count = dna.upper().count("T")
+  at_content = (a_count + t_count) / length
+
+  return at_content > 0.65
+
+
+print(is_at_rich("ATTATCTACTA")) # True
+print(is_at_rich("CGGCAGCGCT")) # False
+
+# can be used as a condition
+if is_at_rich(dna):
+  # perform some task if returns true
+```
+
+## Recap
+
+In this short section, we've dealt with two things: conditions, and the statements that use them. We've seen how simple conditions can be joined together to make more complex ones, and how the concepts of truth and falsehood are built in to Python on a fundamental level. We've also seen how we can incorporate True and False in our own functions in a way that allows them to be used as part of conditions.
