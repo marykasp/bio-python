@@ -169,7 +169,7 @@ Important to check that code does what you intend it to do
 - an assertion consists of the word `assert` followed by call to the function, then two equals signs `==`, then result expected
 
 `assert get_at_content("ATGC") == 0.5`
-if assertion turns out to e false then the program will stop and get `AssertionError`
+if assertion turns out to be false then the program will stop and get `AssertionError`
 
 - check if functions are working as intended
 - helpful in tracking down errors in program

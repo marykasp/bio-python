@@ -1,4 +1,4 @@
-# function should accep a list of amino acid residues or have a default value
+# function should accept a list of amino acid residues or have a default value
 # return the percentage of the amino acid residues
 
 def get_percentage_aa(protein, aa_list=["A", "I", "L", "M", "F", "W", "Y", "V"]):
