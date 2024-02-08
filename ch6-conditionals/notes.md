@@ -180,4 +180,4 @@ if is_at_rich(dna):
 
 ## Recap
 
-In this short section, we've dealt with two things: conditions, and the statements that use them. We've seen how simple conditions can be joined together to make more complex ones, and how the concepts of truth and falsehood are built in to Python on a fundamental level. We've also seen how we can incorporate True and False in our own functions in a way that allows them to be used as part of conditions.
+In this short section, we've dealt with two things: conditions, and the statements that use them. We've seen how simple conditions can be joined together to make more complex ones, and how the concepts of truth and falsehood are built in to Python on a fundamental level. We've also seen how we can incorporate True and False in our own functions in a way that allows them to be used as part of conditionsWe've been introduced to four different tools that use conditions – if, else, elif, and while – in approximate order of usefulness.
