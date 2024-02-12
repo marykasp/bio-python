@@ -253,3 +253,52 @@ for m in matches:
 ```
 
 ### Getting multiple matches as strings
+
+A common scenario is where we want to get a list of all the parts of a string that match a given pattern
+
+`[AT]{6,}`
+
+ACTGATTATATCGTACGAAATTATACGCGCG
+
+```python
+dna = "CTGCATTATATCGTACGAAATTATACGCGCG"
+
+matches = re.finditer(r"[AT]{6,}", dna)
+
+result = []
+for m in matches:
+    result.append(m.group())
+
+print(result)
+```
+
+```python
+dna = "CTGCATTATATCGTACGAAATTATACGCGCG"
+
+result = re.findall(r"[AT]{6,}", dna)
+print(result)
+```
+
+### Splitting a string using regular expression
+
+Can split a string using a regular expression pattern as delimiter
+
+`re.split()` - takes a regular expression pattern as an argument
+
+EX. DNA sequence that contains ambiguity codes, want to extract all runs of contiguous unambigous bases
+
+- split the DNA string wherever we see a base that is not `A, T, G, C`
+
+```python
+dna = "ACTNGCATRGCTACGTYACGATSCGAWTCG"
+runs = re.split(r"[^ATGC]", dna)
+print(runs)
+
+# ['ACT', 'GCAT', 'GCTACGT', 'ACGAT', 'CGA', 'TCG']
+
+
+```
+
+## Recap
+
+In this section we learned about regular expressions, and the functions and methods that use them. We started with a brief introduction to two concepts that, while not part of the regular expression tools, are necessary in order to use them – modules and raw strings. We got a brief overview of features that can be used in regular expression patterns, and a quick look at the range of different things we can do with them. Just as regular expressions themselves can range from simple to complex, so can their uses. We can use regular expressions for simple tasks – like determining whether or not a sequence contains a particular motif – or for complicated ones, like identifying messenger RNA sequences by using complex patterns.
