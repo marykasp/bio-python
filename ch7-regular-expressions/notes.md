@@ -157,3 +157,99 @@ Represent positions in the input string. `^` matches the **start** of a string, 
 
 `re.match(pattern, string)` - will only identify a pattern if it matches the **entire** string
 `re.search(pattern, string)` - will identify a pattern occurring **anywhere** in the string
+
+## Using Patterns
+
+### Extracting part that matched
+
+Want to find if a patttern matched, but **what part** of the string was matched
+
+`re.search(pattern, string).group()`
+
+- if `re.search()` finds a match it returns an objecgt that is evaluated as true in a conditional context, returns a _match object_
+- _match object_ - represents the results of a regular expression search, has useful methods for extracting data out of it
+- `group()` method on match object - returns the portion of the input string that matched the pattern
+
+EX. determine if a DNA sequence contains any bases that are NOT A, T, G, or C
+
+- use negated character group
+
+```python
+dna = "ATCGCGNAATTCAC"
+
+# returns true if dna sequence contains a character that is NOT part of these listed
+if re.search(r"[^ATGC]", dna):
+  print("ambigious base found")
+
+# if returns true then the DNA sequence contains a non-ATCG base, but won't tell what the base was
+m = re.search(r"[^ATGC]", dna):
+
+if m:
+  print("ambigious base found")
+  ambigious_base = m.group()
+  print("the base is " + ambigious_base)
+
+# ambigious base found
+# the base is N
+```
+
+### Extracting multiple groups
+
+```python
+scientific_name = "Homo sapiens"
+
+# . is all characters
+# + repeated one more many times
+# followed by space with same pattern
+m = re.search(r"(.+) (.+)", scientific_name)
+print("match object " + m)
+
+if m:
+  genus = m.group(1)
+  species = m.group(2)
+  print("genus is " + genus + " " + "species is " + species)
+```
+
+`()` in regular expressions:
+
+1. surrounding alternatives in an alternation
+2. grouping parts of a pattern for use with quantifier, quantifiers follow the group (`+, ?, *, {}`)
+3. defining parts of a pattern to be extracted after the match
+
+### Getting match positions
+
+As well as containing information abot the **contents** of a match, the match object also holds information abou the **position** of the match.
+
+- `start()` and `end()` methods get the positions of the start and end of the pattern on the string
+
+```python
+m = re.search(r"[^ATGC]", dna):
+# returns true if any ambigious bases found
+
+if m:
+  print("ambigious base found")
+  ambigious_base = m.group()
+  print("the base is " + ambigious_base)
+  print("at position " + str(m.start()))
+```
+
+### Multiple Matches
+
+The above method can only find a single ambigious base, `re.search` only finds a single match anywhere in the string. To process multiple matches, we need to switch to `re.finditer()`, which returns a list of match objects which can be processed with a loop
+
+```python
+dna = "CGCTCNTAGATGCGCRATGATGCAVTGC"
+
+matching = re.finditer(r"[^AGTC]", dna)
+
+for m in matches:
+  base = m.group()
+  pos = m.start()
+  print(base + " found at position " + str(pos))
+
+# N found at position 5
+# R found at position 15
+# Y found at position 25
+```
+
+### Getting multiple matches as strings
