@@ -73,3 +73,51 @@ enzymes['BisI'] =  r'GC[ATGC]GC'
 ```python
 enzymes.pop('EcoRI') # r"GAATTC"
 ```
+
+```python
+dna = "AATGATGAACGAC"
+dinucleotides = ['AA','AT','AG','AC',
+                 'TA','TT','TG','TC',
+                 'GA','GT','GG','GC',
+                 'CA','CT','CG','CT']
+all_counts = {}
+for dinucleotide in dinucleotides:
+    count = dna.count(dinucleotide)
+    if count > 0:
+        all_counts[dinucleotide] = count
+print(all_counts)
+```
+
+`get()` method returns the value of the key if exists
+
+- takes optional second argument, which is the default value to be returned if the key isn't present in the dict
+  `all_counts.get("AA", 0)`
+
+## Iterating over dictionary
+
+Want to perform a task on all items - need to iterate over the collection of key:value pairs
+Ex. print out all dinucleotides with count of 2
+
+```python
+for dinucleotide in dinucleotides
+  if all_counts.get(dinucleotide, 0) == 2:
+    print(dinucleotide)
+
+```
+
+Can use a nested for loop to generate the list of dinucleotide strings:
+
+```python
+bases = ["A", "G", "T", "C"]
+dna = "AATGATGAACGAC"
+
+all_counts = {}
+# instaed of using list create list using nested for loop
+for base1 in bases:
+  for base2 in bases:
+    dinculeotide = base1 + base2
+    count = dna.count(dinucleotide)
+    all_counts[dinucleotide] = count
+
+print(all_counts)
+```

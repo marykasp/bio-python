@@ -9,7 +9,14 @@ dinucleotide_counts = {}
 
 for dinucleotide in dinucleotides:
   count = dna.count(dinucleotide)
-  dinucleotide_counts[dinucleotide] = count
+  if count > 0:
+    dinucleotide_counts[dinucleotide] = count 
 
 print(dinucleotide_counts)
-print(dinucleotide_counts["AA"])
+# this will return a keyError since AA count is 0 and those were not added to dictionary
+# print(dinucleotide_counts["AA"])
+
+if 'AA' in dinucleotide_counts:
+  print(dinucleotide_counts['AA'])
+
+print(dinucleotide_counts.get("AT"))
