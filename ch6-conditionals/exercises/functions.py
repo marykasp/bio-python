@@ -13,5 +13,4 @@ def get_data(file):
   
   return all_data
 
-print(get_data(data))
 

@@ -113,3 +113,47 @@ if re.search(r"GG[ATGC]GC", dna):
 `GC.GC` would match all four possibilites for BisI, but would also match any character that is not a DNA base like `N`
 
 2. Can specify characters don't want to match `[^XYZ]`, will negate it and match any characters not in this group, match all characters besides X, Y, and Z
+
+## Quantifiers
+
+**quantifiers** let us describe variation in the number of times a section of a pattern is repeated
+
+1. `GAT?C` - a question mark following a character means that character is optional - it can match either zero or one times
+
+`GAT?C` - `T` is optional, `GATC` or `GAC`
+
+2. `GGA+TTT` - a plus sign following a character or group means that the character or group **must** be present that can be repeated any number of times - will mach more than one time
+
+`GGA+TTT` - `GGATTT`, `GGAATTT`, `GGAAATTT`
+
+3. `GGGA*TTT` - asterik following a character or group means that the character or group is **optional**, but can also be repeated
+
+- will match zero or more times
+
+`GGGA*TTT` - `GGGATTT`, `GGGAATTT`, `GGGAAATTT`, `GGGTTT`
+
+4. `{}` to match a specific number of repeats
+
+`GA{5}T` - `GAAAAAT`
+
+5. `{2,4}` will match a range of repeats
+
+`GA{2,4}T` - `GAAT`, `GAAAT`, `GAAAAT`
+
+## Positions
+
+Represent positions in the input string. `^` matches the **start** of a string, and the `$` matches **end** of a string
+
+`^AAA` - AAATTT but not GGGAAATTT, 3 As need to be at the beginning of sequence
+`GGG$` - AAAGGG but not AAAGGGCCC, sequence ends in 3 Gs
+
+## Combining - character groups, quantifiers (?, +, \*, {}), positions (^, $)
+
+`^AUG[AUGC]{30, 1000}A{5,10}$`
+
+- `ATG` start codon at beginning of sequence
+- followed by between 30 to 1000 bases which can be `A, U, G, C`
+- followed by a poly A tail between 5 and 10 bases at the end of the sequence
+
+`re.match(pattern, string)` - will only identify a pattern if it matches the **entire** string
+`re.search(pattern, string)` - will identify a pattern occurring **anywhere** in the string
