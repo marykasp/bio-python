@@ -51,3 +51,65 @@ import re
 print(r"\n\t") # new line and tab character ignored
 #\n\t
 ```
+
+This special _raw_ notation will be used in all regular expression code examples
+
+## Searching for a pattern in a string
+
+`re.search()` - true/false function that determines whether or not a pattern appears somewhere in a string
+
+- accepts 2 strings as arguments - first is pattern you want to search for, and the second is the string you want to search in
+
+EX. See if a DNA sequence contains en **EcoRI** restriction site
+
+```python
+dna = "ATCGCGAATTCAC"
+
+if re.search(r"GAATTC", dna):
+  print("restriction site found in " + dna)
+```
+
+EX. Check for presence of an **AvaII** recognition site (`GGACC and GGTCC`)
+
+```python
+dna = "ATCGCGAATTCAC"
+
+if re.search(r"GGACC", dna) or re.search(r"GGTCC", dna):
+  print("restriction site found for AVaII")
+```
+
+### Alternation
+
+**ALternation** - represent a number of different alternatives, write inside `()` by a `|` character
+
+`GG(A|T)CC`
+
+```python
+dna = "ATCGCGAATTCAC"
+
+# use alternation to capture use a single capture to capture all variations searching for
+if re.search(r"GG(A|T)CC", dna):
+  print("restriction site found for AVaII")
+```
+
+## Character Groups
+
+EX. **BisI** RE cuts a wide range of motifs that have the pattern `GGNGC`
+
+`GG(A|T|G|C)GC`
+
+Can write the above pattern more concisely by using a pair of `[]`
+`GG[ATGC]GC` - GGAGC, GGTGC, GGGGC, GGCGC
+
+```python
+dna = "ATCGCGAATTCA"
+
+if re.search(r"GG[ATGC]GC", dna):
+  print("restriction site found")
+```
+
+1. Want a character in a pattern to match **any** character in the input use a period
+
+`GC.GC` would match all four possibilites for BisI, but would also match any character that is not a DNA base like `N`
+
+2. Can specify characters don't want to match `[^XYZ]`, will negate it and match any characters not in this group, match all characters besides X, Y, and Z
