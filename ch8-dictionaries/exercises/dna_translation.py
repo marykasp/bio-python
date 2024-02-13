@@ -41,9 +41,11 @@ def translate_dna(dna):
 
   return protein
 
-print(translate_dna(dna))
-print(translate_dna("ATGTTCGGTA"))
+# input sequence - multiple of 3
+print(translate_dna("ATGTTCGGT"))
 
-# trying sequence with undetermined base
-print(translate_dna("ATGTTNCGGT"))
+# input sequence has incomplete codons at the end
+print(translate_dna("ATCGATCGAT"))
 
+# input sequence contains N
+print(translate_dna("ACGANCGAT"))
