@@ -27,8 +27,15 @@ codon3 = dna[6:]
 
 # use range to generate a sequence of numbers starting from 0, stepwise of 3
 # start at 0, stop at 3 less than length of dna sequence
+protein = ""
+
 for start_pos in range(0, 7, 3):
   # 0, 3, 6
   codon = dna[start_pos:start_pos+3]
+  aa = gencode.get(codon)
   print("codon: " + codon)
+  print("amino acid code is: " + aa)
+
+  # string concatenation
+  protein = protein + aa
   
